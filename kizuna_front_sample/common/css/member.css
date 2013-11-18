@@ -1,0 +1,80 @@
+/* ----- 全体設定 ----- */
+caption p{
+	color						: #000000;
+	font-size					: 20px;
+	font-weight					: bolder;
+	text-decoration				: underline;
+}
+
+caption {
+	color						: #000000;
+}
+
+/* ----- id設定 ----- */
+#t-member {
+	padding						: 0px;
+	margin						: 0px;
+	width						: 575px;
+}
+
+#t-member th:first-child, td:first-child {
+	width						: 75px;
+	heigth						: 15px;
+}
+
+#t-member th, td {
+	width						: 210px;
+	border						: 1px #000000 solid;
+}
+
+#t-member th:last-child, td:last-child {
+	width						: 80px;
+}
+
+#t-member thead tr {
+	background-color			: #F6CEF5;
+}
+
+tbody th, tr {
+	border-right				: 3px #000000 solid;
+}
+
+tbody tr:last-child {
+	border-bottom				: 3px #000000 solid;
+}
+
+
+/* カレント行の強調 */
+.tr-zoom {
+	border						: 1px #FF0000 solid;
+	background-color			: #F3F781;
+}
+
+
+/* ----- クラス設定 ----- */
+.toProfile {
+	width						: 75px;
+	height						:	15px;
+	padding						: 0px;
+	margin						: 0px auto;
+	font-size					: 10px;
+	color						: #178700;
+	border						: 1px solid #ffffff;
+	background					: -moz-linear-gradient(
+									top,
+									#ff00ff 0%,
+									#ffffff);
+	background					: -webkit-gradient(
+									linear, left top, left bottom, 
+									from(#ff00ff),
+									to(#ffffff));
+	-moz-border-radius			: 10px;
+	-webkit-border-radius		: 10px;
+	border-radius				: 15px;
+	-moz-box-shadow				: 2px 2px 2px rgba(0,85,255,1),
+									inset 0px 0px 10px rgba(255,0,255,0.7);
+	-webkit-box-shadow			: 2px 2px 2px rgba(0,85,255,1),
+									inset 0px 0px 10px rgba(255,0,255,0.7);
+	box-shadow					: 2px 2px 2px rgba(0,85,255,1),
+									inset 0px 0px 10px rgba(255,0,255,0.7);
+}
