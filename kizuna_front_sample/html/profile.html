@@ -7,6 +7,13 @@
 		<meta name="Description" content="KIZUNA" />
 		<link rel="stylesheet"  href="../common/css/base.css" media="all" />
 		<link rel="stylesheet"  href="../common/css/inquiry.css" media="all" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript" charset="UTF-8"></script>
+		<script src="../common/js/base.js" type="text/javascript" charset="UTF-8"></script>
+		<script src="../common/js/profile.js" type="text/javascript" charset="UTF-8"></script>
+		<script type="text/javascript">
+		//var test = document.cookie;
+		//$("#info").append(test);
+		</script>
 	</head>
 
 	<body id="inquiry" class="mypage">
@@ -29,7 +36,7 @@
 						<dt>xxxx:</dt><dd>xxxxxxx</dd>
 					</dl>
 				</div><!-- /#info -->
-			</div><!-- /.inner -->
+			</div><!-- /#inner -->
 		</header><!-- /#header -->
 
 		<!-- グローバルナビゲーション部分 -->
@@ -62,53 +69,49 @@
 							<th>プロフィール写真</th>
 								<td>
 									<img src="../common/img/get-profile-img.jpg" width="200" height="200" /><br>
-									<input name="sendfile" type="file" id="sendfile"><br>
-									<input type="submit" value="変更する"　/>
+									<input name="sendfile" type="file" id="select_file"><br>
+									<input id="send_img_file" type="button" value="変更する"　/>
 								</td>
 						</tr>
 						<tr>
 							<th>名前</th>
 								<td>
-									<input type="text" id="name" name="name" />
+									<span id="name"></span>
 								</td>
 						</tr>
 						<tr>
 							<th>性別</th>
-								<td>
-									<input type="radio" id="gender" name="gender" value="男" />男
-									<input type="radio" id="gender" name="gender" value="女" />女
-									<input type="radio" id="gender" name="gender" value="未公表" />未公表
+								<td id="gender-area">
 								</td>
 						</tr>
 						<tr>
 							<th>生年月日</th>
-								<td>
-									<select id="year" name="year"></select>年<select id="month" name="month"></select>月<select id="day" name="day"></select>日
+								<td id="birthday-area">
 								</td>
 						</tr>
 						<tr>
 							<th>住所</th>
-								<td>
-									<input type="text" id="address" name="address" />
+								<td id="address-area">
 								</td>
 						</tr>
 						<tr>
 							<th>電話番号その1</th>
-								<td>
-									<input type="tel" id="telephone_number_1" name="telephone_number_1" />
+								<td id="phone-num1-area">
 								</td>
 						</tr>
 						<tr>
 							<th>電話番号その2</th>
-								<td>
-									<input type="tel" id="telephone_number_2" name="telephone_number_2" />
+								<td id="phone-num2-area">
 								</td>
 						</tr>
-						<tr>
-								<td colspan="2"><input type="submit" id = "profile_button" value="登録" /></td>
-						</tr>
 					</table>
-				</section><!-- /.sec -->
+					<span id="update-button-area"></span>
+				</section><!-- /#sec -->
+				<section id="talk">
+					<div id="show-talk-area">
+						<button id="get-talk-data-open-user" value="show talk data">show talk data</button>
+					</div><!-- /#show-talk-area -->
+				</section><!-- /#talk -->
 			</section><!-- /#main -->
 
 			<!-- サイドバー部分 -->
@@ -128,11 +131,11 @@
 				<ul>
 					<li><a href="#">xxxxx</a></li>
 					<li><a href="#">xxxxx</a></li>
-					<li><a href="#">xxxxx </a></li>
+					<li><a href="#">xxxxx</a></li>
 				</ul>
 
 				<p id="copyright"><small>Copyright (c) 絆プロジェクトチーム All rights reserved.</small></p>
-			</div><!-- /.inner -->
+			</div><!-- /#inner -->
 		</footer> <!-- /#footer -->
 
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript" charset="UTF-8"></script>
