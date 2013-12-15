@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8" />
+		<title>KIZUNA～絆～</title>
+		<meta name="Keywords" content="KIZUNA" />
+		<meta name="Description" content="KIZUNA" />
+		<link rel="stylesheet"  href="../common/css/login.css" media="all" />
+	</head>
+
+	<body>
+		<h2>新規登録</h2>
+        <hr>
+        <div align="center">
+        	<font color=red><span id="error_span"></span></font>
+            <table border="0">
+                    <tr>
+                        <th class="touroku_field">
+           	メールアドレス
+                        </th>
+                        <td class="touroku_field">
+                            <input type="text" id="user_address" name="mail_address" /><br/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="touroku_field">
+                            パスワード
+                        </th>
+                        <td class="touroku_field">
+                            <input type="text" id="user_pass" name="password" /><br/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="touroku_field">
+                            名前
+                        </th>
+                        <td class="touroku_field">
+                            <input type="text" id="user_name" name="name" /><br/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="touroku_button">
+                            <input type="submit" id="touroku_button" value="登録" />
+                        </td>
+                    </tr>
+            </table>
+            <a href="./login01.html">ログイン画面へ戻る</a>
+        </div>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript" charset="UTF-8"></script>
+		<script type="text/javascript">
+			var baseUrl = 'http://api.ki2na.madfaction.net:80/'
+				$("#touroku_button").click( function() {
+
+					var mail_Address = $("#user_address").val();
+					var password = $("#user_pass").val();
+					var name = $("#user_name").val();
+
+					$.ajax( {
+						dataType : 'jsonp'
+						, data     : {
+							mail_address : mail_Address,
+							password : password,
+							name : name
+						}
+						, url      : baseUrl + 'login/new-entry'
+						, cache    : false
+						, async    : true
+						, type     : 'get'
+						, success  : function( data ) {
+							var result = data['result'];
+							if(result==0){
+								window.location = "./home.html";
+								alert("登録完了");
+							}
+							if(result==1){
+								$("#error_span").text( "メールアドレスエラーです。" );
+							}
+							if(result==2){
+								$("#error_span").text( "パスワードエラーです。" );
+							}
+							if(result==3){
+								$("#error_span").text( "名前エラーです。" );
+							}
+							if(result==4){
+								$("#error_span").text( "登録済エラーです。" );
+							}
+						}
+					} );
+				} );
+		</script>
+	</body>
+</html>

@@ -1,0 +1,61 @@
+@charset "utf-8";
+
+.f-table{
+	width:100%;
+}
+
+.f-table th{
+	width:12em;
+	padding:10px;
+	border-bottom:#ccc 1px dotted;
+	text-align:left;
+	vertical-align:top;
+}
+
+.f-table td{
+	padding:10px;
+	border-bottom:#ccc 1px dotted;
+}
+
+.f-table .note{
+	padding:0;
+	background:none;
+}
+
+.f-table textarea{
+	width:400px;
+	height:150px;
+	border:#ddd 1px solid;
+}
+
+.m-table{
+	width:100%;
+	margin-bottom:5px;
+}
+
+.m-table th{
+	width:12em;
+	padding:10px;
+	border-bottom:#ccc 1px dotted;
+	text-align:left;
+	vertical-align:top;
+}
+
+.m-table td{
+	padding:10px;
+	border:#666 1px dotted;
+}
+
+.submit-btn{
+	margin-top:20px;
+	text-align:center;
+}
+
+.submit-btn input{
+	width:100px;
+	height:30px;
+}
+
+input:focus{
+	background:#ffc;
+}

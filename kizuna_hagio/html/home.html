@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8" />
+		<title>KIZUNA～絆～</title>
+		<meta name="Keywords" content="KIZUNA" />
+		<meta name="Description" content="KIZUNA" />
+		<link rel="stylesheet"  href="../common/css/base.css" media="all" />
+		<link rel="stylesheet"  href="../common/css/inquiry.css" media="all" />
+
+
+	</head>
+
+	<body id="iquery" class="home">
+		<!-- グローバルナビゲーション部分 -->
+		<nav id="nav">
+			<ul class="clearfix">
+				kizuna
+				<li class="icn"><a href="#" id="logout">LOGOUT</a></li>
+				<li class="icn"><a href="#">MEMBER</a></li>
+				<li class="icn"><a href="./mypage.html">MY PAGE</a></li>
+				<li class="icn"><a href="#">HOME</a></li>
+			</ul>
+		</nav> <!-- /#gnav -->
+
+		<!-- コンテンツ部分 -->
+		<div id="contents" class="clearfix">
+
+			<nav id="pankuzu">
+				<ul>
+					<li><a href="#">HOME</a></li>
+				</ul>
+			</nav>
+
+			<!-- メイン部分 -->
+			<section id="main">
+				<section class="sec">
+					<form id="upfile" enctype="multipart/form-data">
+					<table class="f-table">
+						<tr>
+							<th>投稿種別</th>
+								<td>
+									<select class="theme_select" name="sel" id="theme">
+									</select>
+								</td>
+						</tr>
+						<tr>
+							<th>内容</th>
+								<td>
+									<textarea name="f-content" id="talk" cols="40" rows="4" required></textarea>
+								</td>
+						</tr>
+						<tr>
+							<th>投稿お知らせメール</th>
+								<td>
+									<input name="sendmail" type="checkbox" value="1" id="f-type1" checked="checked" />
+									<label for="sendmail">皆に送信する</label>
+								</td>
+						</tr>
+						<tr>
+							<th>画像</th>
+								<td>
+									<input name="upload_file" type="file">
+								</td>
+						</tr>
+					</table>
+					<!--<input type="submit" id="send_button2" value="test" />-->
+					<p class="send_button"><input type="submit" id="send_button" value="送信" /></p>
+					
+					</form>
+					
+					<select class="theme_select" name="sel" id="view_theme">
+					<option value="">全て</option>
+					</select>
+					<br><br>
+					<div id="messages"></div>
+					<p class="send_button"><input type="submit" id="add_button" value="もっと読む" /></p>
+				</section><!-- /.sec -->
+			</section><!-- /#main -->
+
+			<!-- サイドバー部分 -->
+			<aside id="side">
+				<div id="profile">
+					<p><a href="#"><img src="../common/img/get-profile-img.jpg" width="180" height="180" alt="xxxxxxxxx" /></a></p>
+				</div><!-- /#banner -->
+			</aside><!-- /#sidebar -->
+
+			<p class="pagetop"><a href="#header">このページのトップヘ</a></p>
+		</div><!-- /#contents -->
+
+		<!-- フッター部分 -->
+		<footer id="footer">
+			<div class="inner">
+				<ul>
+					<li><a href="#">xxxxx</a></li>
+					<li><a href="#">xxxxx</a></li>
+					<li><a href="#">xxxxx </a></li>
+				</ul>
+
+				<p id="copyright"><small>Copyright (c) 絆プロジェクトチーム All rights reserved.</small></p>
+			</div><!-- /.inner -->
+		</footer> <!-- /#footer -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript" charset="UTF-8"></script>
+		<script src="../common/js/getTalk.js" type="text/javascript" charset="UTF-8"></script>
+		<script type="text/javascript">
+			var baseUrl = 'http://api.ki2na.madfaction.net:80/'			
+			var talkArray = new Array();
+			var addtalk = 1;
+
+			//初期動作
+			talkArray = new Array();
+			getTheme();	
+			getTalk('',addtalk);
+
+			$("#send_button2").click( function() {
+				var upload_file = $("#upload_file").val();
+
+				$.ajax( {
+					dataType : 'jsonp'
+					, data     : {
+						upload_file : upload_file
+					}
+					, enctype  : 'multipart/form-data'
+					, url      : 'http://suzuki.api.ki2na.madfaction.net/img/upload'
+					, cache    : false
+					, async    : true
+					, type     : 'post'
+					, success  : function( data ) {
+						var result = data['result'];
+						//$("#name_span").text( result );
+						alert(result);
+					}
+				} );
+			} );
+
+			$("#view_theme").change( function() {
+				viewThemeId = $("#view_theme").val();
+				getTalk(viewThemeId,1);
+			});
+			/*退出する*/
+			$("#logout").click( function() {
+				if(confirm("退出してよろしいですか") == true){
+					$.ajax( {
+						dataType : 'jsonp'
+						, url      : baseUrl + 'login/logout'
+						, cache    : false
+						, async    : true
+						, type     : 'get'
+						, success  : function( data ) {
+							window.location = "./login01.html";
+						}
+					} );
+				}
+			});
+			function getTheme() {
+				//var theme_id;
+		
+					$.ajax( {
+						dataType : 'jsonp'
+						, url      : baseUrl + 'talk/get-theme'
+						, cache    : false
+						, async    : true
+						, type     : 'get'
+						, success  : function( data ) {
+							//alert(data.theme_data[0].theme_id);
+							//alert(data.theme_data[1].theme_id);
+							for (var i=0; i<data["theme_data"].length; i++){
+								$(".theme_select").append("<option value='" + data.theme_data[i].theme_id + "'>" + data.theme_data[i].theme_name + "</option>" );
+							}
+						}
+					} );
+			}				 
+			/*コメントする*/
+			$(".comment_button").live("click", function() {
+				var talk_seq_num = $(this).attr("id");
+				var header = "comment_button_"
+				talk_seq_num = talk_seq_num.slice(header.length);
+				var comment = $("#comment_" + talk_seq_num).val();
+				
+					$.ajax( {
+						dataType : 'jsonp'
+						, data     : {
+							talk_seq_num : talk_seq_num,
+							comment : comment
+						}
+						, url      : baseUrl + 'talk/exec-comment'
+						, cache    : false
+						, async    : true
+						, type     : 'get'
+						, success  : function( data ) {
+							loadTalk();
+						}
+					} );
+			});
+
+			$("#send_button").click( function() {
+				SendImage();
+				var theme_id = $("#theme").val();
+				//var talk = $("#talk").val();
+				var talk = $("#talk").val();
+				//talk = talk.replace(/\r\n/g, "&lt;br /&gt;<br />");
+				talk = talk.replace(/(\n|\r)/g, "<br/>");
+				
+				$.ajax( {
+					dataType : 'jsonp'
+					, data     : {
+						theme_id : theme_id,
+						talk : talk
+					}
+					, url      : baseUrl + 'talk/exec-talk'
+					, cache    : false
+					, async    : true
+					, type     : 'get'
+					, success  : function( data ) {
+						loadTalk();
+					}
+				} );
+			} );
+			/*} );*/
+			
+			function SendImage(){
+				var form = $("#upfile").get()[0];
+				var formData = new FormData(form);
+								
+				$.ajax( {
+					dataType : 'jsonp'
+					, data     : {
+						upload_file : formData
+					}
+					, url      : baseUrl + 'img/upload'
+					, contentType: false
+        			, processData: false
+					, cache    : false
+					, async    : true
+					, type     : 'post'
+					, success  : function( data ) {
+						var result = data['img_key'];
+						//$("#name_span").text( result );
+						alert(result);
+					}
+				} );
+			}
+			
+			$(function() {
+				$("body").prepend('<div class="overlay"></div>');
+				var h = $(document).height();
+				$(".overlay").css('height', h);
+				$("#profile img").click(function() {
+					var url = $(this).attr('src');
+					var w = ($(document).width()/2)-400;
+					var t = $(document).scrollTop()+100;
+					$(".overlay").empty().append('<img src="' + url + '" /><span id="cursol">画面クリックで閉じる</span>').fadeIn('fast');
+					$(".overlay img").css({left: w, top: t, opacity: '1'});
+					$("body").mousemove(function(e) {
+						var x = e.pageX + 10;
+						var y = e.pageY - 30;
+						$("#cursol").css({top: y, left: x});
+					});
+				});
+				$(".overlay").click(function() {
+					$(".overlay").hide();
+				});
+			});
+			
+			//もっと読むボタンを押す
+			$("#add_button").click( function() {
+				viewThemeId = $("#view_theme").val();
+				addtalk = addtalk + 1;
+				getTalk(viewThemeId,addtalk);
+			} );
+		</script>		
+	</body>
+</html>

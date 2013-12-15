@@ -1,0 +1,64 @@
+/*ヘッダー文字*/
+h1 {
+    font-size: 32px;
+    margin: 0px;
+    padding: 4px;
+    color: #e75439;
+}
+h2 {
+    font-size: 32px;
+    margin: 0px;
+    padding: 4px;
+    color: #00A;
+}
+
+hr {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+/*ログイン項目 */
+th.login_field {
+    width: 150px;
+    text-align: left;
+    padding: 8px;
+    color: #ffffff;
+    background-color: #e75439;
+}
+
+td.login_field {
+    padding: 8px;
+}
+
+td.login_button {
+    text-align: center;
+    padding: 8px;
+}
+
+
+/*登録項目 */
+th.touroku_field {
+    width: 150px;
+    text-align: left;
+    padding: 8px;
+    color: #ffffff;
+    background-color: #00A;
+}
+
+td.touroku_field {
+    padding: 8px;
+}
+
+td.touroku_button {
+    text-align: center;
+    padding: 8px;
+}
+
+/*新規登録項目 */
+a{
+	color:#878787;
+}
+
+a:hover{
+	color:#e75439;
+}
