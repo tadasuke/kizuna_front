@@ -249,3 +249,59 @@ function updateUserData(){
 		}
 	});
 }
+// トークデータ取得
+$(document).ready(function () {
+	$("#get-talk-data-disp-user").click(function() {
+		var vars = getUrlVars();
+		var userKey = vars['user-key'];
+		console.log(userKey);
+		$.ajax({
+			dataType   : 'jsonp'
+			, data     : {
+				theme_id      : ''
+				,talk_user_key : userKey
+				,talk_seq_num  : ''
+				,start_seq_num : ''
+				,data_count    : ''
+			}
+			,url       : BaseUrl.getBaseUrl() + 'talk/get-talk'
+			,cashe     : 'false'
+			,async     : 'false'
+			,success   : function(data) {
+				console.log(data);
+				setTalkData(data['talk_data']);
+			}
+		});
+	});
+});
+// トークデータ出力
+function setTalkData(talkArray) {
+	var i;
+	// トークコンテナ
+	$('<article>', { id: 'talk-container'}).appendTo($("#show-talk-area"));
+	// １トーク分
+	for(i = 0; i < talkArray.length; i++) {
+		// トーク表示部分
+		$('<section>', { id: 'talk'+ i, class: 'one-talk' }).appendTo($("#talk-container"))
+					.html($('<div>', { class: 'talk-user-img'})
+					.html($('<img>', { src: '../common/img/get-profile-img.jpg',}).width(80).height(80)));
+			$('<div>', { id: 'talk-main-container' + i, class: 'talk-main-container'}).appendTo($("#talk" + i));
+			$('<div>', { id: 'talk-header' + i, class: 'talk-header'})
+					.html($('<span>', { text: talkArray[i]['talk_user_name']})).appendTo($("#talk-main-container" + i));
+				$('<span>', { text: talkArray[i]['theme_id']}).appendTo($("#talk-header" + i));
+				$('<span>', { text: talkArray[i]['talk_date']}).appendTo($("#talk-header" + i));
+			$('<p>', { id: 'talk-main' + i, class: 'talk-contents', text: talkArray[i]['talk']}).appendTo($("#talk-main-container" + i));
+
+		// コメント表示部分
+		$('<div>', { id: 'comment-container' + i, class: 'comment-container'}).appendTo($("#talk-main-container" + i));
+		var commentArray = talkArray[i]['comment_data'];
+		for (var j = 0; j < commentArray.length; j++) {
+			$('<div>', { id: 'comment' + j, class: 'comment'}).appendTo($("#comment-container" + i));
+			$('<span>', { text: commentArray[j]['comment_user_name']}).appendTo($("#comment" + j));
+			$('<span>', { text: commentArray[j]['comment']}).appendTo($("#comment" + j));
+		}
+	}
+}
+
+
+
