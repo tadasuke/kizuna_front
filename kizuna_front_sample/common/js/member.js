@@ -15,28 +15,41 @@ function init() {
 	var resCount;
 	var userKey;						//【テスト用】
 
-		memberList =  '<thead><tr><th>ユーザ画像</th><th>ユーザ名</th><th>メールアドレス</th><th>プロフィール</th></tr></thead><tbody>';
-		for ( i = 0; i < 50; i++) {
-			resCount = i + 1;
-			userKey　= 00000 + i;			//【テスト用】
+	/* 要素の全体構成の構築。 */
+	$('<table>', { id : 't-member' }).appendTo($("section[class='sec']"));
+	$('<caption>', { id : 't-caption' }).appendTo($('#t-member'));
+	$('<thead>', { id : 't-thead' }).appendTo($('#t-member'));
+	$('<tbody>', { id : 't-tbody' }).appendTo($('#t-member'));
 
-			memberList += '<tr><td>';
-			memberList += resCount + '番目';
-			memberList += '</td><td>';
-			memberList += resCount + '番目 ユーザ名';
-			memberList += '</td><td>';
-			memberList += resCount + '番目 メールアドレス';
-			memberList += '</td><td>';
-			memberList += '<button class="toProfile" value="' + userKey + '">プロフィール</button>';
-			memberList += '</td></tr>';
+	/* 各要素にデータを設定。 */
+	$('#t-thead').append('<tr><th>ユーザ画像</th><th>ユーザ名</th><th>メールアドレス</th><th>プロフィール</th></tr>');
 
-		};
+	/* ユーザ情報を設定。 */
+	for ( i = 0; i < 50; i++) {
 
-		memberList += '</tbody>';
+		var resCount = i + 1;
+		var userKey = 0000 + i;
+		var recordClass = 'user-record' + i;
 
-		$('#t-member').append('<caption><p>ユーザ情報一覧</p>'
-													+'ユーザ数：' + resCount + '件</caption>');
-		$('#t-member').append(memberList);
+
+		$('<tr>', { class : recordClass }).appendTo($('#t-member'));
+
+		$('tr[class=' + recordClass + ']').append(
+				'<td>' + resCount + '番目</td>'
+				+ '<td>' + resCount + '番目 ユーザ名</td>'
+				+ '<td>' + resCount + '番目 メールアドレス</td>'
+				+ '<td></td>');
+
+		/* プロフィール画面への遷移ボタンの設定。 */
+		$('<button>', {
+				class : 'toProfile'
+				, value : userKey
+				, text : 'プロフィール'
+		}).appendTo($('tr[class=' + recordClass + '] > td:last-of-type'));
+
+	};
+
+		$('#t-caption').append('<p>ユーザ情報一覧</p>ユーザ数：' + resCount + '件');
 
 		var delaySpeed = 50;
 		var fadeSpeed = 1000;
@@ -66,7 +79,7 @@ function trZoom() {
 
 
 
-/* ----- プロフィール画面へ遷移 ----- */
+/* ----- プロフィール画面へ繊維 ----- */
 function toProfileMove() {
 
 	$("button").click( function() {
